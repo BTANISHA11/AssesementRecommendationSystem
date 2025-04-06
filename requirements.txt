@@ -7,8 +7,8 @@ sentence-transformers
 tabulate
 fastapi
 uvicorn
-torch==2.0.1
+torch
 # sentence-transformers==2.2.2
-faiss-cpu==1.7.4
+faiss-cpu
 
 
