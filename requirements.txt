@@ -2,10 +2,13 @@ streamlit
 pandas
 numpy
 scikit-learn
-faiss-cpu
-sentence-transformers
+# faiss-cpu
+# sentence-transformers
 tabulate
 fastapi
 uvicorn
+torch==2.0.1
+sentence-transformers==2.2.2
+faiss-cpu==1.7.4
 
 
