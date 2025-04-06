@@ -1,83 +1,70 @@
+# import streamlit as st
+# import faiss
+# import pickle
+# import numpy as np
+# import pandas as pd
+# from sentence_transformers import SentenceTransformer
+
+# # Load FAISS index
+# with open("embed/faiss_index.pkl", "rb") as f:
+#     index, df = pickle.load(f)
+
+# # Load embedding model
+# model = SentenceTransformer("all-MiniLM-L6-v2")
+
+# # Streamlit App Title
+# st.title("🔍 SHL Assessment Recommendation Engine")
+
+# # Description
+# st.write("Enter a job description or role to get matching SHL assessments.")
+
+# # Search box
+# query = st.text_input("💼 Enter job description or query:")
+
+# # Handle search
+# if query:
+#     with st.spinner("Searching..."):
+#         query_vec = model.encode([query]).astype('float32')
+#         distances, indices = index.search(query_vec, 10)
+#         results = df.iloc[indices[0]].copy()
+
+#         # Create clickable links for "Test Name"
+#         results["Test Name"] = results.apply(
+#             lambda row: f"[{row['Test Name']}]({row['Link']})", axis=1
+#         )
+
+#         # Select and rename columns
+#         results = results[["Test Name", "Remote Testing", "Adaptive/IRT", "Test Type", "Duration"]]
+#         results.columns = ["Assessment Name", "Remote", "Adaptive/IRT", "Test Type", "Duration"]
+
+#         st.success("Top matching assessments:")
+#         st.write(results.to_markdown(index=False), unsafe_allow_html=True)
 import streamlit as st
 import pandas as pd
-from query_faiss import faiss_search  # ✅ Your search logic
+from query_faiss import faiss_search  # ✅ Import your search logic
 
-# Page config
-st.set_page_config(
-    page_title="SHL Assessment Recommender",
-    page_icon="🔍",
-    layout="centered"
-)
+# Streamlit App Title
+st.title("🔍 SHL Assessment Recommendation Engine")
 
-# Custom CSS for dark theme and stylish cards
-st.markdown("""
-    <style>
-        .stApp {
-            background-color: #121212;
-            color: #ffffff;
-        }
-        .title {
-            font-size: 2.8em;
-            font-weight: bold;
-            color: #00ADB5;
-            margin-bottom: 0.5em;
-        }
-        .subtitle {
-            font-size: 1.2em;
-            color: #BBBBBB;
-            margin-bottom: 1.5em;
-        }
-        .assessment-card {
-            background-color: #1E1E1E;
-            border: 1px solid #333;
-            border-radius: 12px;
-            padding: 1.2em;
-            margin-bottom: 1em;
-            box-shadow: 0 4px 10px rgba(0, 173, 181, 0.2);
-        }
-        .assessment-title {
-            font-size: 1.3em;
-            color: #00ADB5;
-            font-weight: bold;
-            margin-bottom: 0.3em;
-        }
-        .assessment-detail {
-            font-size: 0.95em;
-            color: #DDDDDD;
-            margin: 0.2em 0;
-        }
-    </style>
-""", unsafe_allow_html=True)
+# Description
+st.write("Enter a job description or role to get matching SHL assessments.")
 
-# Title
-st.markdown("<div class='title'>🔍 SHL Assessment Recommendation Engine</div>", unsafe_allow_html=True)
-st.markdown("<div class='subtitle'>Enter a job description or role to get matching SHL assessments.</div>", unsafe_allow_html=True)
-
-# User input
+# Search box
 query = st.text_input("💼 Enter job description or query:")
 
-# Search and display results
+# Handle search
 if query:
-    with st.spinner("🔎 Searching for matching assessments..."):
+    with st.spinner("Searching..."):
         results = faiss_search(query)
 
-        if not results.empty:
-            st.success("✅ Top Matching Assessments")
-            for _, row in results.iterrows():
-                assessment_name = f"<a href='{row['Link']}' target='_blank' class='assessment-title'>{row['Test Name']}</a>"
-                remote = f"🖥️ Remote: {row['Remote Testing']}"
-                adaptive = f"🧠 Adaptive/IRT: {row['Adaptive/IRT']}"
-                test_type = f"📘 Test Type: {row['Test Type']}"
-                duration = f"⏱️ Duration: {row['Duration']}"
+        # Create clickable links
+        results["Assessment Name"] = results.apply(
+            lambda row: f"[{row['Test Name']}]({row['Link']})", axis=1
+        )
 
-                st.markdown(f"""
-                    <div class='assessment-card'>
-                        {assessment_name}
-                        <div class='assessment-detail'>{remote}</div>
-                        <div class='assessment-detail'>{adaptive}</div>
-                        <div class='assessment-detail'>{test_type}</div>
-                        <div class='assessment-detail'>{duration}</div>
-                    </div>
-                """, unsafe_allow_html=True)
-        else:
-            st.warning("No matching assessments found. Try refining your query.")
+        # Select and rename columns
+        results = results[["Assessment Name", "Remote Testing", "Adaptive/IRT", "Test Type", "Duration"]]
+        results.columns = ["Assessment Name", "Remote", "Adaptive/IRT", "Test Type", "Duration"]
+
+        st.success("Top matching assessments:")
+        st.write(results.to_markdown(index=False), unsafe_allow_html=True)
