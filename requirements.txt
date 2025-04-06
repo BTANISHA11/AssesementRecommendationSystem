@@ -1,14 +1,12 @@
-streamlit
-pandas
-numpy
-scikit-learn
-# faiss-cpu
-sentence-transformers
-tabulate
+streamlit==1.44.1
+requests==2.32.3
+beautifulsoup4==4.13.3
+sentence-transformers==4.0.2
+scikit-learn==1.6.1
+faiss-cpu==1.10.0
+torch==2.6.0
+python-dotenv==1.1.0
+google-generativeai==0.8.4
+transformers==4.41.0
 fastapi
 uvicorn
-torch
-# sentence-transformers==2.2.2
-faiss-cpu
-
-
