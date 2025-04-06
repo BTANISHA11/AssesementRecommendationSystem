@@ -96,7 +96,10 @@ with open('embed/faiss_index.pkl', 'rb') as f:
     index, df = pickle.load(f)
 
 # Load embedding model
-model = SentenceTransformer('all-MiniLM-L6-v2')
+# model = SentenceTransformer('all-MiniLM-L6-v2')
+model = SentenceTransformer('./local_model')
+
+
 
 # Duration extractor
 def extract_duration(text):
