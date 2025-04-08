@@ -15,7 +15,12 @@ An AI-powered Streamlit application that recommends SHL assessments based on job
 ---
 
 ## For cheking health
-https://assesementrecommendationsystem.onrender.com/health
+1. Start Univcorn server at http://127.0.0.1:8000/
+2 . Go to Postman
+3. Add the url http://127.0.0.1:8000/health
+5. Output for this will be shown in body in postman
+![Screenshot (717)](https://github.com/user-attachments/assets/379272e0-cd34-4840-beaf-5dc90ff7edb4)
+
 
 ## For recommend Jobs
 1. Start Univcorn server at http://127.0.0.1:8000/
