@@ -14,6 +14,9 @@ An AI-powered Streamlit application that recommends SHL assessments based on job
 
 ---
 
+## For cheking health
+https://assesementrecommendationsystem.onrender.com/health
+
 ### 🚀 Demo
 Experience the live application here: [SHL Recommender Live App →](https://shlrecommendation.streamlit.app/)
 
