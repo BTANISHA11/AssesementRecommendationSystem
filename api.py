@@ -43,6 +43,11 @@ def recommend_assessments(req: QueryRequest):
         print(f"Error occurred: {e}")
         return {"status": "error", "message": str(e)}
 
+@app.get("/health")
+def health_check():
+    return {"status": "healthy"}
+
+
 # Required for Render.com (detects PORT and binds correctly)
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 8000))
